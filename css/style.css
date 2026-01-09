@@ -1,8 +1,8 @@
 body {
 	font-family: Verdana, Arial;
 	font-size: 12px;
-	color: #595441;
-	background:#e3f3ff;
+	color: #2D373C;
+	background:#f5f9fa;
 	text-align:center;
 	margin-top:0px;
 	padding-top:10px;
@@ -14,10 +14,10 @@ body {
 	background:white;
 	text-align:left;
 	padding:5px 20px 10px 20px;
-	border-left:3px solid #2a85b3;
-	border-right:3px solid #2a85b3;
-	border-bottom:3px solid #2a85b3;
-	border-top:3px solid #2a85b3;
+	border-left:3px solid #D20537;
+	border-right:3px solid #D20537;
+	border-bottom:3px solid #D20537;
+	border-top:3px solid #D20537;
 	border-radius:20px;
 }
 .hide-if-no-js {display: none;}
@@ -26,17 +26,18 @@ div, p, td {
 	font-size: 12px;
 }
 a, a:link, a:active, a:visited {
-	color: #2a85b3;
+	color: #D20537;
 	text-decoration: none;
 }
 a:hover {
 	text-decoration: underline;
+	color: #A5D7D2;
 }
 h1 {height:50px;margin:0;float:right;max-width:500px;}
 h1 a {text-align:right;font-size:20px;float:right;}
-h1 a, h1 a:link, h1 a:active, h1 a:visited {color:#2a85b3}
+h1 a, h1 a:link, h1 a:active, h1 a:visited {color:#D20537}
 h1 a:hover{text-decoration:none;}
-h1 a:hover span{text-decoration:underline;color:#88c0eb}
+h1 a:hover span{text-decoration:underline;color:#A5D7D2}
 #yourls-logo {
     border:0px;
     width:300px;
@@ -71,30 +72,30 @@ input, textarea {
 Input.text, select, textarea {
 	font-family: Verdana, Arial;
 	font-size: 10px;
-	color: #595441;
+	color: #2D373C;
 	background-color: #FFFFFF;
-	border: 1px solid #88c0eb;
+	border: 1px solid #A5D7D2;
 	margin:1px;
 }
 input.button {
 	font-family: Verdana, Arial;
 	font-size: 10px;
-	color: #595441;
+	color: #2D373C;
 	font-weight: bold;
 	background-color: #FFFFFF;
-	border: 1px solid #88c0eb;
+	border: 1px solid #A5D7D2;
 	cursor:pointer;
 }
 input.primary {
-	border:2px solid #2A85B3;
-	background:#fafafe;
+	border:2px solid #D20537;
+	background:#fff5f7;
 }
 input.text:focus, textarea:focus {
-	border:2px solid #2A85B3;
+	border:2px solid #D20537;
 	margin:0px;
 }
 tr.edit-row  td {
-	background:#e3f3ff !important;
+	background:#f0f9f8 !important;
 }
 #new_url {
 	text-align:center;
@@ -104,19 +105,19 @@ tr.edit-row  td {
 	clear:both;
 }
 #new_url div {
-	background:#C7E7FF;
+	background:#A5D7D2;
 	padding:4px;
 }
 #new_url_form {
 	padding:4px;
 }
 #new_url #feedback {
-	background:#ff8;
-	color:#88c0eb;
+	background:#fff5f7;
+	color:#D20537;
 	width:50%;
 	margin:0px 25%;
 	padding:2px;
-	border:1px solid #ff8;
+	border:1px solid #A5D7D2;
 }
 #new_url #feedback .fail {
 	color:#f55;
@@ -155,10 +156,10 @@ tr:focus-within td.actions input, tr:focus-within td.actions a {
 td.actions .button {
 	font-family: Verdana, Arial;
 	font-size: 10px;
-	color: #595441;
+	color: #2D373C;
 	font-weight: bold;
 	background-color: #FFFFFF;
-	border: 1px solid #88c0eb;
+	border: 1px solid #A5D7D2;
 	border-radius:3px;
 	cursor:pointer;
 	height:22px;
@@ -248,10 +249,10 @@ td.actions .button_stats {
 	padding:0 2px;
 }
 a.bookmarklet {
-	border:2px solid #2a85b3;
+	border:2px solid #D20537;
 	border-radius:3px;
 	padding:5px 5px 5px 20px;
-	background:#eef url(../images/favicon.svg) 2px center no-repeat;
+	background:#f0f9f8 url(../images/favicon.svg) 2px center no-repeat;
 	padding-left:30px;
 	margin:3px;
 	display:inline-block;
@@ -270,7 +271,7 @@ a.bookmarklet:hover {
 	margin:0 auto;
 	max-width:950px;
 	border-radius:10px;
-	border:2px solid #2a85b3;
+	border:2px solid #D20537;
 	border-bottom-left-radius:25px;
 	border-bottom-right-radius:25px;
 }
@@ -280,8 +281,8 @@ a.bookmarklet:hover {
 }
 
 .notice {
-	border:1px solid #2a85b3;
-	background: #F3FAFD;
+	border:1px solid #D20537;
+	background: #f0f9f8;
 	border-radius:6px;
 	width:70%;
 	margin-left:15%;
@@ -335,13 +336,13 @@ tr:hover.plugin td.plugin_desc small{ visibility:visible;}
     width: 50em;
     height: 19em;
     padding: 0px;
-    border: 3px solid #2a85b3;
+    border: 3px solid #D20537;
     border-radius: 20px;
 }
 #delete-confirm-dialog > div[name="dialog_title"] {
-    background-color: #c7e7ff;
+    background-color: #A5D7D2;
     font-size: 20px;
-    color: #026090;
+    color: #2D373C;
     text-align: center;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -358,7 +359,7 @@ tr:hover.plugin td.plugin_desc small{ visibility:visible;}
     overflow: hidden;
 }
 #delete-confirm-dialog div.confirm-message ul {
-    border-left: 5px solid #026090;
+    border-left: 5px solid #D20537;
     list-style-type: none;
     padding: 0 1em;
 }
@@ -366,13 +367,13 @@ tr:hover.plugin td.plugin_desc small{ visibility:visible;}
     margin-bottom: 0.5em;
 }
 #delete-confirm-dialog div.confirm-message ul li span {
-    border: 1px solid #c7e7ff;
+    border: 1px solid #A5D7D2;
     border-radius: 3px;
     padding: 1px 5px;
-    color:#333;
+    color:#2D373C;
 }
 #delete-confirm-dialog div.button-group {
-    background-color: #e3f3ff;
+    background-color: #f0f9f8;
     width: calc(50em - 4em);
     height: 2em;
     float: none;

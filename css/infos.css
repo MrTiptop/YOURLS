@@ -9,7 +9,7 @@ ul.toggle_display {
 	margin-left:0;
 	margin-right:23px;
 	padding:12px 5px 3px;
-	border-bottom:1px solid #C7E7FF;
+	border-bottom:1px solid #A5D7D2;
 }
 ul.toggle_display li {
 	padding:0;
@@ -19,7 +19,7 @@ ul.toggle_display li {
 	margin-right: 10px;
 }
 #tabs ul#headers {
-	border-bottom:1px solid #E3F3FF;
+	border-bottom:1px solid #f0f9f8;
 	padding:12px 5px 3px 5px;
 	float:left;
 }
@@ -28,18 +28,18 @@ ul.toggle_display li {
 }
 
 #tabs ul#headers li a {
-	color:#595441;
-	border:1px solid #C7E7FF;
+	color:#2D373C;
+	border:1px solid #A5D7D2;
 	-moz-border-radius:10px 10px 0 0;
 	-webkit-border-radius:10px 10px 0 0;
 	border-radius:10px 10px 0 0;
 	padding:10px 5px 5px 15px;
-	background:#E3F3FF;
+	background:#f0f9f8;
 }
 
 #tabs ul#headers li a:hover {
 	text-decoration:none;
-	background:#88C0EB;
+	background:#A5D7D2;
 }
 
 #tabs ul#headers li a.selected {

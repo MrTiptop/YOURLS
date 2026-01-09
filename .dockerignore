@@ -1,0 +1,45 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Documentation
+*.md
+readme.html
+CHANGELOG.md
+LICENSE
+
+# Tests
+tests/
+phpunit.xml.dist
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# User data (will be mounted as volume)
+user/config.php
+user/plugins/
+user/pages/
+
+# Logs
+*.log
+
+# Composer (will be installed in container)
+composer.lock
+vendor/
+
+# Sample files
+sample-*.txt
