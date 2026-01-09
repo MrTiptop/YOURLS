@@ -1,0 +1,56 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: yourls-web
+    ports:
+      - "${YOURLS_PORT:-8080}:80"
+    volumes:
+      - ./user:/var/www/html/user
+      - ./index.php:/var/www/html/index.php
+      - ./frontend:/var/www/html/frontend
+      - ./.htaccess:/var/www/html/.htaccess
+    environment:
+      - YOURLS_DB_HOST=db
+      - YOURLS_DB_USER=${YOURLS_DB_USER:-yourls}
+      - YOURLS_DB_PASS=${YOURLS_DB_PASS:-yourls_password}
+      - YOURLS_DB_NAME=${YOURLS_DB_NAME:-yourls}
+      - YOURLS_DB_PREFIX=${YOURLS_DB_PREFIX:-yourls_}
+      - YOURLS_SITE=${YOURLS_SITE:-http://localhost:8080}
+      - YOURLS_COOKIEKEY=${YOURLS_COOKIEKEY}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - yourls-network
+
+  db:
+    image: mariadb:10.11
+    container_name: yourls-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root_password}
+      - MYSQL_DATABASE=${YOURLS_DB_NAME:-yourls}
+      - MYSQL_USER=${YOURLS_DB_USER:-yourls}
+      - MYSQL_PASSWORD=${YOURLS_DB_PASS:-yourls_password}
+    volumes:
+      - yourls-db-data:/var/lib/mysql
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - yourls-network
+
+volumes:
+  yourls-db-data:
+    driver: local
+
+networks:
+  yourls-network:
+    driver: bridge

@@ -56,7 +56,7 @@ yourls_html_head( 'install', yourls__( 'Install YOURLS' ) );
 <div id="login">
     <form method="post" action="?"><?php // reset any QUERY parameters ?>
         <p>
-            <img src="<?php yourls_site_url(); ?>/images/yourls-logo.svg" id="yourls-logo" alt="YOURLS" title="YOURLS" />
+            <img src="<?php yourls_site_url(); ?>/images/yourls-logo.png" id="yourls-logo" alt="UniLinks" title="UniLinks" />
         </p>
         <?php
             // Print errors, warnings and success messages

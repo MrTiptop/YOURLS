@@ -254,7 +254,7 @@ function yourls_http_request( $type, $url, $headers, $data, $options ) {
  * @return string UA string
  */
 function yourls_http_user_agent() {
-    return yourls_apply_filter( 'http_user_agent', 'YOURLS v'.YOURLS_VERSION.' +http://yourls.org/ (running on '.yourls_get_yourls_site().')' );
+    return yourls_apply_filter( 'http_user_agent', 'UniLinks v'.YOURLS_VERSION.' (running on '.yourls_get_yourls_site().')' );
 }
 
 /**

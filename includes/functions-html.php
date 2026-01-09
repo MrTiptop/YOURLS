@@ -10,8 +10,8 @@ function yourls_html_logo() {
     ?>
     <header role="banner">
     <h1>
-        <a href="<?php echo yourls_admin_url( 'index.php' ) ?>" title="YOURLS"><span>YOURLS</span>: <span>Y</span>our <span>O</span>wn <span>URL</span> <span>S</span>hortener<br/>
-        <img src="<?php yourls_site_url(); ?>/images/yourls-logo.svg?v=<?php echo YOURLS_VERSION; ?>" id="yourls-logo" alt="YOURLS" title="YOURLS" /></a>
+        <a href="<?php echo yourls_admin_url( 'index.php' ) ?>" title="UniLinks"><span>UniLinks</span><br/>
+        <img src="<?php yourls_site_url(); ?>/images/yourls-logo.png?v=<?php echo YOURLS_VERSION; ?>" id="yourls-logo" alt="UniLinks" title="UniLinks" /></a>
     </h1>
     </header>
     <?php
@@ -77,7 +77,7 @@ function yourls_html_head( $context = 'index', $title = '' ) {
     $bodyclass .= ( yourls_is_mobile_device() ? 'mobile' : 'desktop' );
 
     // Page title
-    $_title = 'YOURLS &mdash; Your Own URL Shortener | ' . yourls_link();
+    $_title = 'UniLinks &mdash; University Link Shortener | ' . yourls_link();
     $_title = empty($_title_page) ? $_title : $_title_page . ' &mdash; ' . $_title;
     $title = $title ? $title . " &laquo; " . $_title : $_title;
     $title = yourls_apply_filter( 'html_title', $title, $context );
@@ -88,8 +88,8 @@ function yourls_html_head( $context = 'index', $title = '' ) {
 <head>
     <title><?php echo $title ?></title>
     <meta http-equiv="Content-Type" content="<?php echo yourls_apply_filter( 'html_head_meta_content-type', 'text/html; charset=utf-8' ); ?>" />
-    <meta name="generator" content="YOURLS <?php echo YOURLS_VERSION ?>" />
-    <meta name="description" content="YOURLS &raquo; Your Own URL Shortener' | <?php yourls_site_url(); ?>" />
+    <meta name="generator" content="UniLinks <?php echo YOURLS_VERSION ?>" />
+    <meta name="description" content="UniLinks &raquo; University Link Shortener | <?php yourls_site_url(); ?>" />
     <?php yourls_do_action('html_head_meta', $context); ?>
     <?php yourls_html_favicon(); ?>
     <script src="<?php yourls_site_url(); ?>/js/jquery-3.5.1.min.js?v=<?php echo YOURLS_VERSION; ?>" type="text/javascript"></script>
@@ -157,7 +157,7 @@ function yourls_html_footer($can_query = true) {
     </div><?php // wrap ?>
     <footer id="footer" role="contentinfo"><p>
         <?php
-        $footer  = yourls_s( 'Powered by %s', '<a href="http://yourls.org/" title="YOURLS">YOURLS</a> v ' . YOURLS_VERSION );
+        $footer  = yourls_s( 'Powered by %s', '<a href="#" title="UniLinks">UniLinks</a> v ' . YOURLS_VERSION );
         $footer .= $num_queries;
         echo yourls_apply_filter( 'html_footer_text', $footer );
         ?>
