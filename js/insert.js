@@ -47,6 +47,12 @@ function add_link() {
 				zebra_table();
 				increment_counter();
 				toggle_share_fill_boxes( data.url.url, data.shorturl, data.url.title );
+				
+				// Refresh page to show the new link with updated owner column
+				setTimeout(function() {
+					window.location.reload();
+				}, 500);
+				return;
 			}
 
 			add_link_reset();
