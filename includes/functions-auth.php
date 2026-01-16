@@ -641,7 +641,7 @@ function yourls_create_nonce($action, $user = false ) {
  * @return string             Nonce field
  */
 function yourls_nonce_field($action, $name = 'nonce', $user = false, $echo = true ) {
-    $field = '<input type="hidden" id="'.$name.'" name="'.$name.'" value="'.yourls_create_nonce( $action, $user ).'" />';
+    $field = '<input type="hidden" id="'.$name.'" name="'.$name.'" value="'.yourls_create_nonce( $action, $user ).'" aria-label="'.yourls_esc_attr__( 'Security token' ).'" />';
     if( $echo )
         echo $field."\n";
     return $field;
