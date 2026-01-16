@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Redirect 404 to Admin
+Plugin Name: Redirect 404 to Frontend
 Plugin URI: https://github.com/YOURLS/YOURLS
-Description: When a short URL doesn't exist, redirect to the admin page where you can create it. Optionally pre-fills the keyword in the URL field. Works the same way as Fallback URL plugin but specifically redirects to admin creation page.
-Version: 1.1
+Description: When a short URL doesn't exist, redirect to the frontend page where you can create it. Pre-fills the keyword in the custom URL field. Works the same way as Fallback URL plugin but specifically redirects to frontend creation page.
+Version: 1.2
 Author: Robbie De Wet
 */
 
@@ -18,7 +18,7 @@ if( !defined( 'YOURLS_ABSPATH' ) ) die();
 yourls_add_action( 'redirect_keyword_not_found', 'redirect_404_to_admin' );
 
 /**
- * Redirect to admin page when keyword is not found
+ * Redirect to frontend page when keyword is not found
  * 
  * This function works the same way as the Fallback URL plugin:
  * - Both use the 'redirect_keyword_not_found' action hook
@@ -27,7 +27,7 @@ yourls_add_action( 'redirect_keyword_not_found', 'redirect_404_to_admin' );
  * 
  * The difference is:
  * - Fallback URL: Redirects to a configurable URL (any URL)
- * - This plugin: Always redirects to admin page with keyword pre-filled
+ * - This plugin: Always redirects to frontend page with keyword pre-filled
  * 
  * @param string|array $keyword The keyword that was not found (can be string or array)
  */
@@ -50,16 +50,16 @@ function redirect_404_to_admin( $keyword ) {
     // Sanitize the keyword
     $keyword = yourls_sanitize_keyword( $keyword );
     
-    // Build admin URL - redirect to index.php (main admin page)
-    $admin_url = yourls_admin_url( 'index.php' );
+    // Build frontend URL - redirect to index.php (frontend page)
+    $frontend_url = yourls_site_url( 'index.php' );
     
-    // Optionally, if the keyword looks valid, pre-fill it using the 'k' parameter
-    // The admin page uses $_GET['k'] to pre-fill the keyword field
+    // If the keyword looks valid, pre-fill it using the 'k' parameter
+    // The frontend will use JavaScript to pre-fill the keyword field
     if ( $keyword && preg_match( '/^[a-zA-Z0-9_-]+$/', $keyword ) ) {
-        $admin_url = yourls_add_query_arg( array( 'k' => $keyword ), $admin_url );
+        $frontend_url = yourls_add_query_arg( array( 'k' => $keyword ), $frontend_url );
     }
     
-    // Redirect to admin page (302 temporary redirect, same as Fallback URL plugin)
-    yourls_redirect( $admin_url, 302 );
+    // Redirect to frontend page (302 temporary redirect)
+    yourls_redirect( $frontend_url, 302 );
     exit;
 }

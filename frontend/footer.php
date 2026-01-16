@@ -53,6 +53,28 @@
 			window.location.href=window.location.href;
 		});
 	}
+
+	// Pre-fill keyword from URL parameter 'k' (when redirected from non-existent short URL)
+	(function() {
+		const urlParams = new URLSearchParams(window.location.search);
+		const keyword = urlParams.get('k');
+		if (keyword) {
+			const keywordInput = document.querySelector('input[name="keyword"]');
+			const customUrlCollapse = document.querySelector('#customise-link');
+			const customUrlButton = document.querySelector('[data-bs-toggle="collapse"][href="#customise-link"]');
+			
+			if (keywordInput) {
+				keywordInput.value = keyword;
+				// Expand the custom URL field if it's collapsed
+				if (customUrlCollapse && customUrlButton) {
+					const bsCollapse = new bootstrap.Collapse(customUrlCollapse, {
+						toggle: false
+					});
+					bsCollapse.show();
+				}
+			}
+		}
+	})();
 </script>
 
 <?php if (enableRecaptcha) : ?>
