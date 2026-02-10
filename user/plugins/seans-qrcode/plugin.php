@@ -165,8 +165,10 @@ function sean_add_qrcode_css_head( $context ) {
 				<?php if( SEAN_QR_ADD_TO_SHAREBOX ): ?>
 					var shorturl = $('#keyword-'+id+' a:first').attr('href');
 					if (shorturl != undefined) {
-						// Use full URL instead of protocol-relative to ensure it works
-						$('#sean_qr_img').attr( 'src', shorturl + '.qr' );
+						var qrurl = shorturl + '.qr';
+						// Update both the image src and the link href
+						$('#sean_qr_img').attr( 'src', qrurl );
+						$('#sean_qr_link').attr( 'href', qrurl );
 					}
 				<?php endif; ?>
 			}
@@ -200,7 +202,7 @@ function sean_add_qr_div($args) {
 ?>
 	<div id="sean_qr_box" class="share">
 		<?php echo $heading; ?>
-			<a href="<?php echo $img; ?>" onclick="window.open(this.href, 'qr_popup', 'width=400,height=400,scrollbars=no,resizable=yes'); return false;" title="Click to view QR code in full size">
+			<a href="<?php echo $img; ?>" id="sean_qr_link" onclick="window.open(this.href, 'qr_popup', 'width=400,height=400,scrollbars=no,resizable=yes'); return false;" title="Click to view QR code in full size">
 				<img src="<?php echo $img; ?>" id="sean_qr_img" alt="QR code" width="75px" style="cursor: pointer;" />
 			</a>
 	</div>

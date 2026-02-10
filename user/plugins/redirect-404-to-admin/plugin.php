@@ -42,8 +42,8 @@ function redirect_404_to_admin( $keyword ) {
         return; // Don't redirect if we can't determine the keyword
     }
     
-    // Skip .qr requests - let the QR code plugin handle them
-    if ( substr( $keyword, -3 ) === '.qr' ) {
+    // Skip .qr requests - let the QR code plugin handle them via loader_failed
+    if ( strpos( $keyword, '.qr' ) !== false ) {
         return; // Let other plugins (like QR code) handle this
     }
     
