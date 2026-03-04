@@ -70,8 +70,21 @@ jobs:
         with:
           name: YOURLS-pot
 
+      - name: Validate automation credentials
+        id: preflight
+        env:
+          BOT_APP_ID: ${{ vars.BOT_APP_ID }}
+          BOT_PRIVATE_KEY: ${{ secrets.BOT_PRIVATE_KEY }}
+        run: |
+          if [ -z "$BOT_APP_ID" ] || [ -z "$BOT_PRIVATE_KEY" ]; then
+            echo "::notice::Skipping translation submit: BOT_APP_ID/BOT_PRIVATE_KEY are not configured."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "enabled=true" >> "$GITHUB_OUTPUT"
+
       - name: Generate token
-        if: ${{ vars.BOT_APP_ID != '' && secrets.BOT_PRIVATE_KEY != '' }}
+        if: ${{ steps.preflight.outputs.enabled == 'true' }}
         uses: actions/create-github-app-token@v2
         id: app-token
         with:
@@ -80,23 +93,23 @@ jobs:
           owner: ${{ github.repository_owner }}
 
       - name: Get GitHub App User ID
-        if: ${{ vars.BOT_APP_ID != '' && secrets.BOT_PRIVATE_KEY != '' }}
+        if: ${{ steps.preflight.outputs.enabled == 'true' }}
         id: get-user-id
         run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Show git status
-        if: ${{ vars.BOT_APP_ID != '' && secrets.BOT_PRIVATE_KEY != '' }}
+        if: ${{ steps.preflight.outputs.enabled == 'true' }}
         run: git status -vv --untracked=all
 
       - name: Get date
-        if: ${{ vars.BOT_APP_ID != '' && secrets.BOT_PRIVATE_KEY != '' }}
+        if: ${{ steps.preflight.outputs.enabled == 'true' }}
         id: get-date
         run: echo "DATE=$(/bin/date -u "+%F")" >> $GITHUB_OUTPUT
 
       - name: Create pull request
-        if: ${{ vars.BOT_APP_ID != '' && secrets.BOT_PRIVATE_KEY != '' }}
+        if: ${{ steps.preflight.outputs.enabled == 'true' }}
         uses: peter-evans/create-pull-request@v8
         id: pull-request
         with:
@@ -113,7 +126,7 @@ jobs:
             dependencies
 
       - name: Enable Pull Request Automerge
-        if: ${{ vars.BOT_APP_ID != '' && secrets.BOT_PRIVATE_KEY != '' && steps.pull-request.outputs.pull-request-url && steps.pull-request.outputs.pull-request-operation != 'none' }}
+        if: ${{ steps.preflight.outputs.enabled == 'true' && steps.pull-request.outputs.pull-request-url && steps.pull-request.outputs.pull-request-operation != 'none' }}
         run: gh pr merge --auto --rebase "$PR_URL"
         env:
           PR_URL: ${{ steps.pull-request.outputs.pull-request-url }}
