@@ -11,4 +11,7 @@ permissions:
 jobs:
   dependabot:
     name: Dependabot
+    # The reusable workflow expects branch protection compatible with auto-merge.
+    # Skip on forks/clones where this policy may not exist.
+    if: ${{ github.repository == 'YOURLS/YOURLS' }}
     uses: YOURLS/.github/.github/workflows/auto-merge.yml@main

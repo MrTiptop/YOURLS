@@ -28,7 +28,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Validate automation credentials
+        id: preflight
+        env:
+          BOT_APP_ID: ${{ vars.BOT_APP_ID }}
+          BOT_PRIVATE_KEY: ${{ secrets.BOT_PRIVATE_KEY }}
+        run: |
+          if [ -z "$BOT_APP_ID" ] || [ -z "$BOT_PRIVATE_KEY" ]; then
+            echo "::notice::Skipping certificate update: required secrets/variables are not configured (BOT_APP_ID, BOT_PRIVATE_KEY)."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "enabled=true" >> "$GITHUB_OUTPUT"
+
       - name: Generate token
+        if: ${{ steps.preflight.outputs.enabled == 'true' }}
         uses: actions/create-github-app-token@v2
         id: app-token
         with:
@@ -36,29 +50,35 @@ jobs:
           private-key: ${{ secrets.BOT_PRIVATE_KEY }}
 
       - name: Get GitHub App User ID
+        if: ${{ steps.preflight.outputs.enabled == 'true' }}
         id: get-user-id
         run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Get current certificate bundle
+        if: ${{ steps.preflight.outputs.enabled == 'true' }}
         working-directory: ./includes/vendor/rmccue/requests/certificates
         run: |
           curl --remote-name https://curl.se/ca/cacert.pem
           curl --remote-name https://curl.se/ca/cacert.pem.sha256
 
       - name: Verify the checksum of the downloaded bundle
+        if: ${{ steps.preflight.outputs.enabled == 'true' }}
         working-directory: ./includes/vendor/rmccue/requests/certificates
         run: sha256sum --check cacert.pem.sha256
 
       - name: "Debug info: Show git status"
+        if: ${{ steps.preflight.outputs.enabled == 'true' }}
         run: git status -vv --untracked=all
 
       - name: "Get date"
+        if: ${{ steps.preflight.outputs.enabled == 'true' }}
         id: get-date
         run: echo "DATE=$(/bin/date -u "+%F")" >> $GITHUB_OUTPUT
 
       - name: Create pull request
+        if: ${{ steps.preflight.outputs.enabled == 'true' }}
         uses: peter-evans/create-pull-request@v8
         id: pull-request
         with:
@@ -77,14 +97,14 @@ jobs:
             dependencies
 
       - name: Approve a PR
-        if: ${{ steps.pull-request.outputs.pull-request-url && steps.pull-request.outputs.pull-request-operation != 'none' }}
+        if: ${{ steps.preflight.outputs.enabled == 'true' && steps.pull-request.outputs.pull-request-url && steps.pull-request.outputs.pull-request-operation != 'none' }}
         run: gh pr review --approve "$PR_URL"
         env:
           PR_URL: ${{ steps.pull-request.outputs.pull-request-url }}
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Enable Pull Request Automerge
-        if: ${{ steps.pull-request.outputs.pull-request-url && steps.pull-request.outputs.pull-request-operation != 'none' }}
+        if: ${{ steps.preflight.outputs.enabled == 'true' && steps.pull-request.outputs.pull-request-url && steps.pull-request.outputs.pull-request-operation != 'none' }}
         run: gh pr merge --auto --rebase "$PR_URL"
         env:
           PR_URL: ${{ steps.pull-request.outputs.pull-request-url }}
